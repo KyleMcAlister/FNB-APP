@@ -201,10 +201,13 @@ tr:last-child td{border:0}
     <div class="hero-banner">
       <div class="hero-banner-content">
         <div class="springbok-badge">
-          <span>PROUD PARTNER</span>
+          <span>NETWORKING & NEWSLETTER</span>
         </div>
-        <h1>Scroll to score</h1>
-        <p>Get offers and deals on the FNB App made <strong>just for you</strong></p>
+        <h1>SME Breakfast & Newsletter</h1>
+        <p>Join the <strong>Sandton SME Summit</strong> & get weekly growth insights delivered to your inbox.</p>
+        <button class="btn btn-orange" style="margin-top:14px;padding:8px 16px;font-size:12px;border-radius:10px;box-shadow:0 4px 14px rgba(255,85,0,0.4)" onclick="openNewsletterModal()">
+          RSVP & Subscribe Free
+        </button>
       </div>
       <svg class="hero-phone-graphic" viewBox="0 0 100 160" fill="none">
         <rect x="10" y="10" width="80" height="140" rx="12" stroke="#00E5FF" stroke-width="2" fill="#0E1620"/>
@@ -816,6 +819,54 @@ tr:last-child td{border:0}
       <div class="field"><label>Category</label><select id="mTxCategory"><option>Sales</option><option>Services</option><option>Rent</option><option>Salaries</option><option>Stock</option></select></div>
       <div class="field"><label>Amount (ZAR)</label><input id="mTxAmount" type="number" step="0.01" required></div>
       <div class="field full"><button class="btn btn-teal" type="submit">Submit Ledger Entry</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- NETWORKING EVENT & NEWSLETTER RSVP MODAL -->
+<div id="newsletterModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:96;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--fnb-card);border:1px solid var(--fnb-orange);border-radius:18px;width:100%;max-width:460px;padding:24px;position:relative">
+    <button onclick="closeNewsletterModal()" style="position:absolute;top:16px;right:16px;background:transparent;border:0;color:var(--fnb-muted);font-size:22px">&times;</button>
+    
+    <div class="eyebrow" style="color:var(--fnb-orange)">FNB ENTREPRENEUR NETWORK</div>
+    <h2 style="margin:4px 0 8px;color:#fff;font-size:20px">SME Summit & Newsletter</h2>
+    <p style="font-size:12px;color:var(--fnb-muted);margin:0 0 16px;line-height:1.4">
+      Join 200+ South African business owners at the Sandton Convention Centre for keynotes on scaling, funding, and tax strategies. Includes weekly SME Newsletter subscription.
+    </p>
+
+    <div style="background:#0F1720;border:1px solid var(--fnb-line);border-radius:12px;padding:12px;margin-bottom:16px;font-size:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <span style="color:var(--fnb-muted)">📅 Date:</span>
+        <strong style="color:#fff">Thursday, 19 November 2026</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <span style="color:var(--fnb-muted)">📍 Venue:</span>
+        <strong style="color:var(--fnb-teal-bright)">Sandton Convention Centre, JHB</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between">
+        <span style="color:var(--fnb-muted)">🎟 Ticket:</span>
+        <strong style="color:var(--fnb-green)">Free for FNB Business Clients</strong>
+      </div>
+    </div>
+
+    <form id="newsletterForm" onsubmit="submitNewsletterRsvp(event)" class="form-grid">
+      <div class="field full">
+        <label>Full Name</label>
+        <input id="nslName" value="Kyle Mokoena" required>
+      </div>
+      <div class="field full">
+        <label>Business Email</label>
+        <input id="nslEmail" type="email" value="kyle@samplebusiness.co.za" required>
+      </div>
+      <div class="field full">
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;font-weight:normal;color:var(--fnb-text)">
+          <input type="checkbox" id="nslOptIn" checked style="accent-color:var(--fnb-orange)">
+          Receive weekly SME growth tips & financial market digests
+        </label>
+      </div>
+      <div class="field full">
+        <button class="btn btn-orange" type="submit" style="width:100%;padding:12px;font-size:13px">Confirm RSVP & Join Newsletter</button>
+      </div>
     </form>
   </div>
 </div>
@@ -1433,6 +1484,20 @@ function locateMe(){
     filterEntrepreneurs();
     toast('Distances recalculated!');
   });
+}
+
+function openNewsletterModal() {
+  document.getElementById('newsletterModal').style.display = 'flex';
+}
+
+function closeNewsletterModal() {
+  document.getElementById('newsletterModal').style.display = 'none';
+}
+
+function submitNewsletterRsvp(e) {
+  e.preventDefault();
+  closeNewsletterModal();
+  toast('🎉 RSVP confirmed! Seat reserved & newsletter subscription active.');
 }
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
